@@ -22,4 +22,4 @@
 # 预编译;
 # dxm_register_regist_module(dxm_util ${CMAKE_CURRENT_LIST_DIR}/src/prebuilt/dxm_util)
 
-dxm_register_regist_module_finish()
+# dxm_register_regist_module_finish()
