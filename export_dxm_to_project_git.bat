@@ -10,7 +10,7 @@ set /p val=-- 请输入工程git路径:
 cd /d %val%
 
 rem 创建子模块
-git submodule add https://github.com/maodazheng/dxm-cmake.git dxm
+git submodule add https://github.com/dxmgame/dxm.git dxm
 if %errorlevel% neq 0 goto :cmEnd
 
 git submodule update --init --recursive
