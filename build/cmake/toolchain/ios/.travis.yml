@@ -1,0 +1,77 @@
+language:
+    - objective-c
+
+env:
+    - EXAMPLE=00-simple TOOLCHAIN=libcxx
+    - EXAMPLE=00-simple TOOLCHAIN=clang_libstdcxx
+    - EXAMPLE=01-executable TOOLCHAIN=default
+    - EXAMPLE=01-executable TOOLCHAIN=libcxx
+    - EXAMPLE=01-executable TOOLCHAIN=libcxx GENERATOR=-GXcode
+    - EXAMPLE=01-executable TOOLCHAIN=clang_libstdcxx
+    - EXAMPLE=01-executable TOOLCHAIN=custom_libcxx
+    - EXAMPLE=02-library TOOLCHAIN=default
+    - EXAMPLE=02-library TOOLCHAIN=libcxx
+    - EXAMPLE=02-library TOOLCHAIN=clang_libstdcxx
+    - EXAMPLE=02-library TOOLCHAIN=custom_libcxx
+    - EXAMPLE=02-library TOOLCHAIN=ios-nocodesign GENERATOR=-GXcode
+    - EXAMPLE=03-shared-link TOOLCHAIN=default
+    - EXAMPLE=03-shared-link TOOLCHAIN=libcxx
+    - EXAMPLE=03-shared-link TOOLCHAIN=libcxx GENERATOR=-GXcode
+    - EXAMPLE=03-shared-link TOOLCHAIN=clang_libstdcxx
+    - EXAMPLE=03-shared-link TOOLCHAIN=clang_libstdcxx GENERATOR=-GXcode
+
+compiler:
+    - clang
+
+before_install:
+    - brew update
+    - export POLLY_ROOT=`pwd`
+
+install:
+    - brew install python3
+    # install custom libcxx --
+    - mkdir custom_libcxx_lib
+    - cd custom_libcxx_lib
+    - export LIBCXX_ROOT=`pwd`/Install
+    - git clone http://llvm.org/git/libcxx .
+    # release
+    - mkdir -p _builds/make-release
+    - cd _builds/make-release
+    - cmake -DCMAKE_INSTALL_PREFIX=${LIBCXX_ROOT} -DLIBCXX_ENABLE_SHARED=OFF -DCMAKE_BUILD_TYPE=Release -DLIBCXX_ENABLE_ASSERTIONS=OFF ../..
+    - make VERBOSE=1 install
+    - cd ../..
+    # debug
+    - mkdir -p _builds/make-debug
+    - cd _builds/make-debug
+    - cmake -DCMAKE_INSTALL_PREFIX=${LIBCXX_ROOT} -DLIBCXX_ENABLE_SHARED=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEBUG_POSTFIX=d ../..
+    - make VERBOSE=1 install
+    - cd ../..
+    # test
+    - cd ..
+    - ls -la ${LIBCXX_ROOT}/lib/*
+    # -- end
+    # download sugar for 02-library example
+    - wget https://github.com/ruslo/sugar/archive/v1.0.0.tar.gz
+    - tar xf *.tar.gz
+    - export SUGAR_ROOT=`pwd`/sugar-1.0.0
+    # -- end
+
+script:
+    - export XCODE_XCCONFIG_FILE=${POLLY_ROOT}/scripts/NoCodeSign.xcconfig
+    - cd ${POLLY_ROOT}/examples/${EXAMPLE}
+    # release
+    - mkdir -p _builds/make-release
+    - cd _builds/make-release
+    - cmake ${GENERATOR} -DCMAKE_TOOLCHAIN_FILE=${POLLY_ROOT}/${TOOLCHAIN}.cmake -DCMAKE_BUILD_TYPE=Release ../..
+    - cmake --build .
+    - ctest -V .
+    - cmake --build . --target install
+    - cd ../..
+    # debug
+    - mkdir -p _builds/make-debug
+    - cd _builds/make-debug
+    - cmake ${GENERATOR} -DCMAKE_TOOLCHAIN_FILE=${POLLY_ROOT}/${TOOLCHAIN}.cmake -DCMAKE_BUILD_TYPE=Debug ../..
+    - cmake --build .
+    - ctest -V .
+    - cmake --build . --target install
+    - cd ../..

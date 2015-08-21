@@ -1,0 +1,16 @@
+#ifndef @PROJECT_NAME_UPPER@_LIB_H
+#define @PROJECT_NAME_UPPER@_LIB_H
+
+#include "dxm/platform.h"
+
+#ifdef @PROJECT_NAME_UPPER@_AS_DLL
+	#if  defined ( @PROJECT_NAME_UPPER@_EXPORT )
+	#define @PROJECT_NAME_UPPER@_DECL DXM_DLL_EXPORT
+	#else
+	#define @PROJECT_NAME_UPPER@_DECL DXM_DLL_IMPORT
+	#endif // @PROJECT_NAME_UPPER@_EXPORT
+#else
+	#define @PROJECT_NAME_UPPER@_DECL
+#endif
+
+#endif // @PROJECT_NAME_UPPER@_LIB_H
