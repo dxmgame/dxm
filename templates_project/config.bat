@@ -37,9 +37,9 @@ set CLASSPATH=.;%JAVA_HOME%\lib
 rem -------------------------------
 rem -- DxM
 rem -------------------------------
-set DXM_TOOLS=%~dp0\build\tools\win
+set DXM_TOOLS=%~dp0\dxm\build\tools\win
+set DXM_CMAKE=%~dp0\dxm\build\cmake
 set DXM_INSTALL=%~dp0\install
-set DXM_CMAKE=%~dp0\build\cmake
 
 if defined VS140COMNTOOLS (
 	SET DXM_COMPILER_TOOLS=msvc-14.0
