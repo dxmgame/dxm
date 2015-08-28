@@ -94,6 +94,7 @@ MACRO(_dxm_builder_module_post_build)
 
 	# 是否采用预编译头
 	IF(DXM_MODULE_${DXM_BUILDER_MODULE}_PRECOMPILED)
+		# MESSAGE(FATAL_ERROR "DXM_MODULE_${DXM_BUILDER_MODULE}_PRECOMPILED:${DXM_MODULE_${DXM_BUILDER_MODULE}_PRECOMPILED}")
 		_dxm_builder_module_use_precompiled()
 	ENDIF()
 ENDMACRO()
