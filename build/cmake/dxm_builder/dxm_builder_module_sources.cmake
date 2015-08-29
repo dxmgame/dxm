@@ -26,8 +26,6 @@ MACRO( _dxm_builder_module_add_sources )
 	elseif(DXM_CMAKE_PLATFORM_ANDROID)
 		_internal_src_import_from_dir( src.android/cpp .h .hpp .hxx .c .cpp .cxx .cc )
 	endif()
-	
-	# 源码分组;
 	_internal_source_to_group()
 ENDMACRO()
 
@@ -91,7 +89,9 @@ MACRO( _internal_source_to_group )
 	
 		FOREACH(TEMP_SRC_DIRECTORY_FILE ${DXM_SRC_SUB_DIRECTORY_FILES_${TEMP_SRC_DIRECTORY}})
 			STRING(REPLACE "/" "\\" TEMP_SRC_DIRECTORY ${TEMP_SRC_DIRECTORY})
-			SOURCE_GROUP(${TEMP_SRC_DIRECTORY} FILES ${TEMP_SRC_DIRECTORY_FILE})
+			if(CMAKE_GENERATOR)
+				SOURCE_GROUP(${TEMP_SRC_DIRECTORY} FILES ${TEMP_SRC_DIRECTORY_FILE})
+			endif()
 		ENDFOREACH()
 	ENDFOREACH()
 ENDMACRO()

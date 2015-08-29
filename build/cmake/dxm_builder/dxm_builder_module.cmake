@@ -39,13 +39,11 @@ MACRO(_dxm_builder_module_pre_build)
 		dxm_config_template_pre_build()
 	endif()
 
-	_dxm_builder_module_setup_dirty_link() # 递归设脏并对脏模块安装;
-	_dxm_builder_module_link_all() # find并添加宏定义，库及头文件
+	_dxm_builder_module_setup_dirty_link() # 递归设脏并对脏模块安装;	
 	
-	_dxm_builder_module_add_sources() # 导入源码
-	_dxm_builder_module_add_includes() # 导入头文件目录
-	_dxm_builder_module_add_definitions() # 导入宏定义
-
+	_dxm_builder_module_add_global_includes() # 添加全局头文件;
+	_dxm_builder_module_add_sources() # 导入源码	
+	
 	_dxm_builder_module_create_compile_succeeded_cmake() 
 	_dxm_builder_module_create_install_succeeded_cmake()
 ENDMACRO()
@@ -53,6 +51,10 @@ ENDMACRO()
 # 构建;
 # 
 MACRO(_dxm_builder_module_build)
+
+	_dxm_builder_module_link_all() # find并添加宏定义，库及头文件
+	_dxm_builder_module_add_includes() # 导入头文件目录
+	_dxm_builder_module_add_definitions() # 导入宏定义
 
 	IF( NOT DXM_MODULE_${DXM_BUILDER_MODULE}_PREBUILT )
 		IF( ${DXM_MODULE_${DXM_BUILDER_MODULE}_TYPE} STREQUAL APPLICATION)
