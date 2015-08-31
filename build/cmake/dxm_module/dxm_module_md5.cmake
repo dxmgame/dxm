@@ -44,6 +44,12 @@ macro(dxm_module_add_directory_md5 MODULE DIRECTORY)
 		dxm_file_md5dir(${DXM_MODULE_${MODULE}_DIRECTORY}/${DIRECTORY} DXM_MODULE_${MODULE}_MD5)
 	endif()
 endmacro()
+
+macro(dxm_module_add_file_md5 MODULE FILE_PATH)
+	if(EXISTS ${DXM_MODULE_${MODULE}_DIRECTORY}/${FILE_PATH})
+		dxm_file_md5file(${DXM_MODULE_${MODULE}_DIRECTORY}/${FILE_PATH} DXM_MODULE_${MODULE}_MD5)
+	endif()
+endmacro()
 # 
 # 加载安装MD5
 # 
