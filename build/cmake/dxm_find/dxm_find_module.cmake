@@ -218,6 +218,9 @@ MACRO( _dxm_find_module_args_process )
 		COMPONENTS
 		HEADERS
 		)
+	SET(DXM_FIND_ARG_PACKAGE)
+	SET(DXM_FIND_ARG_COMPONENTS)
+	SET(DXM_FIND_ARG_HEADERS)
 
 	foreach(_ARG ${_VAL_ARGS})
 		set(${_ARG})
