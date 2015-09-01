@@ -14,9 +14,7 @@ if exist ..\..\..\..\..\..\config.bat call ..\..\..\..\..\..\config.bat
 echo ##### 提示：编译SO #####
 set NDK_PROJECT_PATH=%cd%
 set NDK_PROJECT_PATH=%NDK_PROJECT_PATH:\=/%
-set NDK_MODULE_PATH=%MY_ROOT%dxm/src/oslibs/libcocos2dx/cocos2d-x;%MY_ROOT%dxm/src/oslibs/libcocos2dx/cocos2d-x/cocos2dx/platform/third_party/android/prebuilt;%NDK_MODULE_PATH%;
-set NDK_MODULE_PATH=%NDK_MODULE_PATH:\=/%
-call %ANDROID_NDK_HOME%\ndk-build.cmd -j8
+call %ANDROID_NDK_HOME%\ndk-build.cmd -j4
 if ERRORLEVEL 1 goto END
 
 echo #### 提示：设置环境目录 #####
