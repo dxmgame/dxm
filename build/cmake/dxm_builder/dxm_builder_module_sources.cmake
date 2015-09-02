@@ -14,7 +14,7 @@ MACRO( _dxm_builder_module_add_sources )
 	
 	# 独立平台源码
 	if(DXM_CMAKE_PLATFORM_WIN32 OR DXM_CMAKE_PLATFORM_WIN64)
-		_internal_src_import_from_dir( src.win32/cpp .h .hpp .hxx .c .cpp .cxx .cc )
+		_internal_src_import_from_dir( src.win32/cpp .h .hpp .hxx .c .cpp .cxx .cc .rc)
 		_internal_src_import_from_dir( package .pkg .bat )
 		_internal_src_import_from_dir( proto .proto )
 		_internal_src_import_from_dir( tbl .tbl )	
