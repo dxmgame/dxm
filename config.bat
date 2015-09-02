@@ -8,7 +8,6 @@ rem -------------------------------
 set JAVA_HOME=C:\Program Files\Java\jdk1.7.0_40
 set ECLIPSE_HOME=E:\adt-bundle-windows-x86\eclipse
 set ANDROID_SDK_HOME=E:\adt-bundle-windows-x86\sdk
-rem set ANDROID_NDK_HOME=E:\android-ndk-r8d
 set ANDROID_NDK_HOME=E:\android-ndk-r10e
 set ANTBIN=%ECLIPSE_HOME%\plugins\org.apache.ant_1.9.2.v201404171502\bin
 set DXM_CMAKE_V3=true
