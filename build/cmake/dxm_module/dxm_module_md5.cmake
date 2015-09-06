@@ -40,13 +40,18 @@ endmacro()
 # 计算工程下载文件夹MD5
 # 
 macro(dxm_module_add_directory_md5 MODULE DIRECTORY)
-	if(EXISTS ${DXM_MODULE_${MODULE}_DIRECTORY}/${DIRECTORY})
+
+	if(IS_ABSOLUTE ${DIRECTORY})
+		dxm_file_md5dir(${DIRECTORY} DXM_MODULE_${MODULE}_MD5)
+	elseif(EXISTS ${DXM_MODULE_${MODULE}_DIRECTORY}/${DIRECTORY})
 		dxm_file_md5dir(${DXM_MODULE_${MODULE}_DIRECTORY}/${DIRECTORY} DXM_MODULE_${MODULE}_MD5)
 	endif()
 endmacro()
 
 macro(dxm_module_add_file_md5 MODULE FILE_PATH)
-	if(EXISTS ${DXM_MODULE_${MODULE}_DIRECTORY}/${FILE_PATH})
+	if(IS_ABSOLUTE ${FILE_PATH})
+		dxm_file_md5file(${FILE_PATH} DXM_MODULE_${MODULE}_MD5)
+	elseif(EXISTS ${DXM_MODULE_${MODULE}_DIRECTORY}/${FILE_PATH})
 		dxm_file_md5file(${DXM_MODULE_${MODULE}_DIRECTORY}/${FILE_PATH} DXM_MODULE_${MODULE}_MD5)
 	endif()
 endmacro()
