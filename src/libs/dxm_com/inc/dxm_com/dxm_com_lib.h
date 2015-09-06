@@ -5,9 +5,9 @@
 
 #ifdef DXM_COM_AS_DLL
 	#if  defined ( DXM_COM_EXPORT )
-	#define DXM_COM_DECL XE_DLL_EXPORT
+	#define DXM_COM_DECL DXM_DLL_EXPORT
 	#else
-	#define DXM_COM_DECL XE_DLL_IMPORT
+	#define DXM_COM_DECL DXM_DLL_IMPORT
 	#endif // DXM_COM_EXPORT
 #else
 	#define DXM_COM_DECL

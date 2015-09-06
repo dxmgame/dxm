@@ -1,19 +1,14 @@
 #include "precompiled.h"
 #include "dynamic_lib.h"
 #include <stdio.h>
+#include "dxm_util/util_log.h"
 
+NS_DXM_BEGIN
 //-----------------------------------------------------------------------
 CDynamicLib::CDynamicLib(const string&  name) 
 	:  dyn_lib_instance_(NULL), load_status_(CDynamicLib::ST_UNLOADED)
 {
 	name_ = name;
-}
-
-CDynamicLib::CDynamicLib( const string& name, const string& path )
-	:  dyn_lib_instance_(NULL), load_status_(CDynamicLib::ST_UNLOADED)
-{
-	name_ = name;
-	path_ = path;
 }
 
 CDynamicLib::CDynamicLib(const CDynamicLib& _dl) 
@@ -39,10 +34,10 @@ bool CDynamicLib::Load()
 {
 	if (load_status_ == CDynamicLib::ST_UNLOADED)
 	{
-		XE_LOG_EX(xenon::util::CLog::LOG_LEVEL_DEBUG, "[component:info ] CDynamicLib::load dll(%s)", name_.c_str());
+		sLogDebug("[component:info ] CDynamicLib::load dll(%s)", name_.c_str());
 
 		std::string name = name_;
-#if (XE_TARGET_PLATFORM == XE_PLATFORM_WIN32)
+#if (DXM_TARGET_PLATFORM == DXM_PLATFORM_WIN32)
 		if (name.substr(name.length() - 4, 4) != ".dll")
 // #ifdef _DEBUG
 // 			name += "d.dll";
@@ -50,7 +45,6 @@ bool CDynamicLib::Load()
 			name += ".dll";
 // #endif // _DEBUG
 
-		name = path_ + name;
 		dyn_lib_instance_ = (DYNAMIC_LIB_HANDLE)DYNAMIC_LIB_LOAD( name.c_str() );
 #else
 		if (name.substr(name.length() - 3, 3) != ".so")
@@ -58,13 +52,12 @@ bool CDynamicLib::Load()
 		if (name.substr(0, 3) != "lib")
 			name = std::string("lib") + name;
 
-		name = path_ + name;
 		dyn_lib_instance_ = (DYNAMIC_LIB_HANDLE)DYNAMIC_LIB_LOAD( name.c_str() );
 #endif
 
 		if( !dyn_lib_instance_ )
 		{
-			XE_LOG_EX(xenon::util::CLog::LOG_LEVEL_DEBUG, "[component:error] CDynamicLib::load dll(%s) failed [ none instance:error(%s) ]", name.c_str(), GetLastError().c_str());
+			sLogDebug("[component:error] CDynamicLib::load dll(%s) failed [ none instance:error(%s) ]", name.c_str(), GetLastError().c_str());
 
 			return false;
 		}
@@ -72,7 +65,7 @@ bool CDynamicLib::Load()
 		load_status_ = CDynamicLib::ST_LOADED;
 		return true;
 	}
-	XE_LOG_EX(xenon::util::CLog::LOG_LEVEL_DEBUG, "[component:info ] CDynamicLib::load is loaded", name_.c_str());
+	sLogDebug("[component:info ] CDynamicLib::load is loaded", name_.c_str());
 	return true;
 }
 
@@ -83,16 +76,16 @@ bool CDynamicLib::Unload()
 	{
 		if ( DYNAMIC_LIB_UNLOAD( dyn_lib_instance_ ) )	
 		{
-			XE_LOG_EX(xenon::util::CLog::LOG_LEVEL_DEBUG, "[component:error] CDynamicLib::unload dll(%s) failed [ call dynamic_lib_UNLOAD failed ]", name_.c_str());
+			sLogDebug("[component:error] CDynamicLib::unload dll(%s) failed [ call dynamic_lib_UNLOAD failed ]", name_.c_str());
 			return false;
 		}
 
-		XE_LOG_EX(xenon::util::CLog::LOG_LEVEL_DEBUG, "[component:info ] CDynamicLib::unload dll(%s) ok", name_.c_str());
+		sLogDebug("[component:info ] CDynamicLib::unload dll(%s) ok", name_.c_str());
 		load_status_ = CDynamicLib::ST_UNLOADED;
 		return true;
 	}
 
-	XE_LOG_EX(xenon::util::CLog::LOG_LEVEL_DEBUG, "[component:error] CDynamicLib::unload dll(%s) failed [ cant find the dll ]", name_.c_str());
+	sLogDebug("[component:error] CDynamicLib::unload dll(%s) failed [ cant find the dll ]", name_.c_str());
 	return false;
 }
 
@@ -105,7 +98,7 @@ void* CDynamicLib::GetSymbol(const string& name) const throw()
 //-----------------------------------------------------------------------
 string CDynamicLib::GetLastError(void)
 {
-#if (XE_TARGET_PLATFORM == XE_PLATFORM_WIN32)
+#if (DXM_TARGET_PLATFORM == DXM_PLATFORM_WIN32)
 	LPVOID lpMsgBuf;
 	FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -126,3 +119,4 @@ string CDynamicLib::GetLastError(void)
 	return std::string(dlerror());
 #endif
 }
+NS_DXM_END

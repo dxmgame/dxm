@@ -4,7 +4,7 @@
 #include "dxm/platform.h"
 #include <memory>
 
-#if (XE_TARGET_PLATFORM == XE_PLATFORM_WIN32)
+#if (DXM_TARGET_PLATFORM == DXM_PLATFORM_WIN32)
 
 #include <windows.h>
 #    define DYNAMIC_LIB_HANDLE			hInstance
@@ -34,7 +34,7 @@ extern "C" {
 #include <string>
 using namespace std;
 
-
+NS_DXM_BEGIN
 class  CDynamicLib
 {
 	enum Status
@@ -49,7 +49,6 @@ public:
 	typedef std::shared_ptr<CDynamicLib> Ptr;
 
 	CDynamicLib(const string& name);
-	CDynamicLib(const string& name, const string& path);
 	CDynamicLib(const CDynamicLib& dl);
 	CDynamicLib& operator=(const CDynamicLib& dl);
 	~CDynamicLib();
@@ -63,8 +62,8 @@ public:
 
 private:
 	string					name_;
-	string					path_;	
 	Status					load_status_;
 	DYNAMIC_LIB_HANDLE		dyn_lib_instance_; /// Handle to the loaded library.
 };
+NS_DXM_END
 #endif // DYNAMIC_LIB_H

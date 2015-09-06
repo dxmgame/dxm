@@ -43,19 +43,19 @@ MACRO(dxm_config_module_init MODULE)
 	# 	额外计算工程当前某目录下的MD5为模块MD5
 	dxm_module_add_default_md5(${MODULE})
 
-	#
+	# 
 	# 3. 导入模块;
-	#
+	# 
 	# dxm_module_link_library(${MODULE} lib FALSE)
 	
 	# dxm_module_link_library(${MODULE} lib false)
 	# dxm_module_link_library(${MODULE} foo false)
-	# dxm_module_link_library(${MODULE} dxm_util false)
+	dxm_module_link_library(${MODULE} dxm_util false)
 	# dxm_module_link_library(${MODULE} dxm_com false)
 	# dxm_module_link_library(${MODULE} lua false)
 	# dxm_module_link_library(${MODULE} tolua false)
 	# dxm_module_link_library(${MODULE} gtest false)
-	# dxm_module_link_library(${MODULE} pthread false)
+	dxm_module_link_library(${MODULE} pthread false)
 	# dxm_module_link_library(${MODULE} dl false)
 	# dxm_module_link_library(${MODULE} socket false)
 	# dxm_module_link_library(${MODULE} xml2 false)

@@ -1,27 +1,17 @@
-#ifndef __COMPONENT_MACRO_H__
-#define __COMPONENT_MACRO_H__
+#ifndef __DXM_COM_MACRO_H__
+#define __DXM_COM_MACRO_H__
 
-#include "component_service_lib.h"
+#include "dxm_com_lib.h"
 #include <typeinfo>
 
 // ###################################################
 /*
-COMPONENT_RTTI1
-COMPONENT_RTTI2
-COMPONENT_RTTI3
-COMPONENT_RTTI4
-COMPONENT_RTTI5
 
 PLUGIN_EXPORT(plugin_name){
-	PLUGIN_EXPORT_COMPONENT(component_name,class_component)
-	PLUGIN_EXPORT_COMPONENT(component_name,class_component)
-	PLUGIN_EXPORT_COMPONENT(component_name,class_component)
+	PLUGIN_EXPORT_COMPONENT(component_name, class_component)
+	PLUGIN_EXPORT_COMPONENT(component_name, class_component)
+	PLUGIN_EXPORT_COMPONENT(component_name, class_component)
 }
-
-REGISTER_COMPONENT(component_name,class_component)
-UNREGISTER_COMPONENT(component_name)
-REGISTER_COMPONENT_WITHOUT_NAME(class_component)
-UNREGISTER_COMPONENT_WITHOUT_NAME(class_component)
 */
 
 // ----------------------------
@@ -97,13 +87,13 @@ public:
 
 // ###################################################
 
-#ifdef COMPONENT_SERVICE_AS_DLL // dynamic plug-in export
+#ifdef DXM_COM_AS_DLL // dynamic plug-in export
 
-#if (XE_TARGET_PLATFORM == XE_PLATFORM_WIN32)
+#if (DXM_TARGET_PLATFORM == DXM_PLATFORM_WIN32)
 #define _PLUGIN_DLL_DECL _declspec ( dllexport )
 #else
 #define _PLUGIN_DLL_DECL
-#endif // XE_PLATFORM_WIN32
+#endif // DXM_PLATFORM_WIN32
 
 #define PLUGIN_EXPORT(plugin_name)		\
 extern "C" {								\
@@ -131,4 +121,4 @@ _PLUGIN_EXPORT_CLASS_NAME(plugin_name)::_PLUGIN_EXPORT_CLASS_NAME(plugin_name)()
 
 #endif
 
-#endif //__COMPONENT_MACRO_H__
+#endif //__DXM_COM_MACRO_H__
