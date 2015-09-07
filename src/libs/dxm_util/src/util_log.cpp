@@ -28,7 +28,6 @@ std::string CLog::GetLogLevelString( int level )
 	case LOG_LEVEL_FATAL:
 		return "FATAL";
 	}
-
 	return "UNKWN";
 }
 

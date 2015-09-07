@@ -29,9 +29,11 @@ macro(_dxm_template_create_module)
 	set(MODULE_DIRECTORY_BE_CREATED ${MODULE_DIRECTORY_BE_CREATED}/${MODULE_RELATIVE_PATH})
 
 	# 拆解路径并创建
-	# get_filename_component( MODULE_DIRECTORY_BE_CREATED ${MODULE_DIRECTORY_BE_CREATED} PATH)
 	get_filename_component( MODULE_BE_CREATED ${MODULE_DIRECTORY_BE_CREATED} NAME)
-	STRING(TOUPPER ${DXM_CONFIG_MODULE_BE_CREATED} MODULE_BE_CREATED_UPPER)
+
+	# 魔板中使用了PROJECT_NAME与PROJECT_NAME_UPPER
+	SET(PROJECT_NAME ${MODULE_BE_CREATED})
+	STRING(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 	# 添加模块文件包含;
 	if(EXISTS ${DXM_CMAKE_CURRENT_TEMPLATE_DIRECTORY}/template.cmake)
@@ -42,7 +44,8 @@ macro(_dxm_template_create_module)
 	endif()
 
 	# 创建模板;这个函数在模板的template.cmake
-	dxm_config_template_init(${DXM_CONFIG_MODULE_BE_CREATED} ${MODULE_DIRECTORY_BE_CREATED})
+	message(STATUS ">>> [MODULE_DIRECTORY_BE_CREATED] dxm_config_template_init: ${MODULE_BE_CREATED} ${MODULE_DIRECTORY_BE_CREATED}")
+	dxm_config_template_init(${MODULE_BE_CREATED} ${MODULE_DIRECTORY_BE_CREATED})
 endmacro()
 
 #################################################################

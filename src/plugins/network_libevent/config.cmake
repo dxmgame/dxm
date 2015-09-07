@@ -50,19 +50,19 @@ MACRO(dxm_config_module_init MODULE)
 	
 	# dxm_module_link_library(${MODULE} lib false)
 	# dxm_module_link_library(${MODULE} foo false)
-	# dxm_module_link_library(${MODULE} dxm_util false)
-	# dxm_module_link_library(${MODULE} dxm_com false)
+	dxm_module_link_library(${MODULE} dxm_util false)
+	dxm_module_link_library(${MODULE} dxm_com false)
 	# dxm_module_link_library(${MODULE} lua false)
 	# dxm_module_link_library(${MODULE} tolua false)
 	# dxm_module_link_library(${MODULE} gtest false)
-	# dxm_module_link_library(${MODULE} pthread false)
+	dxm_module_link_library(${MODULE} pthread false)
 	# dxm_module_link_library(${MODULE} dl false)
 	# dxm_module_link_library(${MODULE} socket false)
 	# dxm_module_link_library(${MODULE} xml2 false)
 	# dxm_module_link_library(${MODULE} z false)
 	# dxm_module_link_library(${MODULE} inet false)
 	# dxm_module_link_library(${MODULE} vld false)
-
+	dxm_module_link_library(${MODULE} libevent false)
 
 ENDMACRO()
 

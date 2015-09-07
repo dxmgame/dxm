@@ -20,6 +20,7 @@ dxm_register_regist_module(dxm_com ${CMAKE_CURRENT_LIST_DIR}/src/libs/dxm_com)
 dxm_register_regist_module(lua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/lua)
 dxm_register_regist_module(tolua ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/tolua)
 dxm_register_regist_module(gtest ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/gtest)
+dxm_register_regist_module(libevent ${CMAKE_CURRENT_LIST_DIR}/src/oslibs/libevent)
 
 # 第三方预编译;
 dxm_register_regist_module(platform ${CMAKE_CURRENT_LIST_DIR}/src/prebuilt/platform pthread dl socket xml2 z inet vld)

@@ -35,20 +35,19 @@ cd %LIBEVENT_VERSION_NAME%
 echo ##### 提示：编译 %LIBEVENT_VERSION_NAME% #####
 nmake makefile.nmake
 if %errorlevel% neq 0 goto :cmEnd
-pause
 
 echo ##### 提示：安装 libevent #####
 
-if not exist %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent mkdir %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent
+if not exist %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent mkdir %DXM_PREBUILT%\lib\%DXM_PLATFORM%
 if not exist %DXM_PREBUILT%\inc\libevent mkdir %DXM_PREBUILT%\inc\libevent
 if not exist %DXM_PREBUILT%\inc\libevent\WIN32-Code mkdir %DXM_PREBUILT%\inc\libevent\WIN32-Code
 
-copy libevent.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent\
-copy libevent_core.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent\
-copy libevent_extras.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\libevent\
+copy libevent.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\
+copy libevent_core.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\
+copy libevent_extras.lib %DXM_PREBUILT%\lib\%DXM_PLATFORM%\
 
 xcopy /y/s include\*.h %DXM_PREBUILT%\inc\libevent
-xcopy /y/s WIN32-Code\*.h %DXM_PREBUILT%\inc\libevent\WIN32-Code
+xcopy /y/s WIN32-Code\*.h %DXM_PREBUILT%\inc\libevent
 
 rem ---------------------
 cd /d %~dp0

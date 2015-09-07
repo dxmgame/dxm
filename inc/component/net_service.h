@@ -1,12 +1,7 @@
 #ifndef _____NET_SERVICE_H_________
 #define _____NET_SERVICE_H_________
 
-#include "boost/function.hpp"
-#include "boost/shared_ptr.hpp"
-#include "boost/enable_shared_from_this.hpp"
-#include "boost/bind.hpp"
-
-#include "component_service/component_service.h"
+#include "dxm_com/dxm_com.h"
 #include "log_service.h"
 
 namespace Foundation{
