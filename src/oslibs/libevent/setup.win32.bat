@@ -21,8 +21,8 @@ echo ##### 提示：解压 %LIBEVENT_VERSION_NAME% #####
 if not exist %LIBEVENT_VERSION_NAME% (
 	
 	rem 解压操作
-	%DXM_TOOLS%\win\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar.gz
-	%DXM_TOOLS%\win\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar
+	%DXM_TOOLS%\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar.gz
+	%DXM_TOOLS%\7za.exe x -y %LIBEVENT_VERSION_NAME%.tar
 	del %LIBEVENT_VERSION_NAME%.tar /Q
 	
 	rem 代码补丁
@@ -34,6 +34,8 @@ cd %LIBEVENT_VERSION_NAME%
 
 echo ##### 提示：编译 %LIBEVENT_VERSION_NAME% #####
 nmake makefile.nmake
+if %errorlevel% neq 0 goto :cmEnd
+pause
 
 echo ##### 提示：安装 libevent #####
 
